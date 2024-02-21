@@ -27,8 +27,43 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
+                
+                <configuration>
+					<includes>
+						<include>**/Parallel*IT.class</include>
+					</includes>
+					<forkCount>2</forkCount>
+					<reuseForks>true</reuseForks>
+				</configuration>
           </plugin>
-
+		
+		
+		<plugin>
+  <groupId>com.github.temyers</groupId>
+  <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+  <version>5.0.0</version>
+  <executions>
+    <execution>
+      <id>generateRunners</id>
+      <phase>generate-test-sources</phase>
+      <goals>
+        <goal>generateRunners</goal>
+      </goals>
+      <configuration>
+        <!-- Mandatory -->
+        <!-- List of package names to scan for glue code. -->
+        <glue>
+          <package>stepDefinitions</package>
+        </glue>
+        <featureDirectory>Features</featureDirectory>
+        <cucumberOutputDir>target/cucumber-parall</cucumberOutputDir>
+        <tags>~@ignored</tags>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+		
+		
 
         </plugins>
         </pluginManagement>
